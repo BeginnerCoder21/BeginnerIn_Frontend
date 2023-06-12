@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In</title>
+</head>
+
+<body>
+    <div class="face">
+        <img src="./images/girl_smile.svg" alt="face" id="girl">
+    </div>
+    <div class="container">
+        <form>
+            <input type="text" class="email" placeholder="Enter your email" id="email">
+            <input type="password" name="password" class="password" placeholder="Enter password" id="password">
+            <label class="forgot label" id="forgot">Forgot Password?</label>
+            <input type="button" value="Sign In" class="button" id="submit">
+            <label class="or label">Or sign in using</label>
+            <section class="icons" id="or_op">
+                <a href=""><i class="fa-brands fa-google fa-2xl" style="color: rgba(97, 0, 143, 0.6);"></i></a>
+                <a href=""><i class="fa-brands fa-linkedin fa-2xl" style="color: rgba(97, 0, 143, 0.6);"></i></a>
+            </section>
+        </form>
+    </div>
+</body>
+<script>
+    var email_inp = document.getElementById("email");
+    var password_inp = document.getElementById("password");
+    var butt_inp = document.getElementById("submit");
+    var face = document.getElementById("girl");
+    var forgot = document.getElementById("forgot");
+    var other = document.getElementById("or_op");
+    const defaultImageSrc = './images/girl_smile.svg';
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    email_inp.addEventListener('input', function () {
+        const email = email_inp.value;
+        if (email.length >= 5 && email.length < 10) {
+            face.src = './images/girl_calm.svg'
+        }
+        else if (email.length >= 10 && emailPattern.test(email)) {
+            face.src = './images/girl_smile_blush.svg'
+        }
+        else {
+            face.src = defaultImageSrc;
+        }
+    });
+
+    forgot.addEventListener('click', function () {
+        face.src = './images/girl_teeth.svg';
+    });
+
+    butt_inp.addEventListener('mouseover', () => face.src = './images/girl_happy.svg');
+    butt_inp.addEventListener('mouseout', () => face.src = './images/girl_smile.svg');
+
+    other.addEventListener('mouseover', function () {
+        face.src = './images/girl_calm.svg';
+    });
+    other.addEventListener('mouseout', function () {
+        face.src = './images/girl_smile.svg';
+    });
+
+    password_inp.addEventListener('input', function () {
+        const pass = password_inp.value;
+        if (pass.length >= 1 && pass.length < 8) {
+            face.src = './images/girl_sad.svg'
+        }
+        else if (pass.length >= 8) {
+            face.src = './images/girl_calm.svg'
+        }
+        else {
+            face.src = defaultImageSrc;
+        }
+    });
+
+    document.addEventListener('click', function (event) {
+        const clickedElement = event.target;
+        const isInputClicked = clickedElement === email_inp || email_inp.contains(clickedElement)
+            || clickedElement === password_inp || password_inp.contains(clickedElement)
+            || clickedElement === forgot || forgot.contains(clickedElement);
+        if (!isInputClicked) {
+            face.src = defaultImageSrc;
+        }
+    });
+
+</script>
+
+</html>
